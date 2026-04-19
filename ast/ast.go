@@ -1,6 +1,8 @@
 // Package ast
 package ast
 
+import "maelho.github.io/monkey/token"
+
 // let <identifier> = <expression>;
 
 type Node interface {
@@ -17,14 +19,32 @@ type Expression interface {
 	expressionNode()
 }
 
+// Program node of every AST
 type Program struct {
-	Statement []Statement
+	Statements []Statement
 }
 
 func (p *Program) TokenLiteral() string {
-	if len(p.Statement) > 0 {
-		return p.Statement[0].TokenLiteral()
+	if len(p.Statements) > 0 {
+		return p.Statements[0].TokenLiteral()
 	} else {
 		return ""
 	}
 }
+
+type LetStatement struct {
+	Token token.Token // token.LET
+	Name  *Identifier
+	Value Expression
+}
+
+func (ls *LetStatement) statementNode()       {}
+func (ls *LetStatement) TokenLiteral() string { return ls.Token.Literal }
+
+type Identifier struct {
+	Token token.Token // token.IDENT
+	Value string
+}
+
+func (i *Identifier) expressionNode()      {}
+func (i *Identifier) TokenLiteral() string { return i.Token.Literal }
