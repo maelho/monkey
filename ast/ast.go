@@ -19,7 +19,7 @@ type Expression interface {
 	expressionNode()
 }
 
-// Program node of every AST
+// Program is the node of every AST
 type Program struct {
 	Statements []Statement
 }
