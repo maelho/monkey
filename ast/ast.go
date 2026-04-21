@@ -3,8 +3,6 @@ package ast
 
 import "maelho.github.io/monkey/token"
 
-// let <identifier> = <expression>;
-
 type Node interface {
 	TokenLiteral() string
 }
@@ -32,6 +30,8 @@ func (p *Program) TokenLiteral() string {
 	}
 }
 
+// let <identifier> = <expression>;
+
 type LetStatement struct {
 	Token token.Token // token.LET
 	Name  *Identifier
@@ -48,3 +48,13 @@ type Identifier struct {
 
 func (i *Identifier) expressionNode()      {}
 func (i *Identifier) TokenLiteral() string { return i.Token.Literal }
+
+// return <expression>:
+
+type ReturnStatement struct {
+	Token       token.Token
+	ReturnValue Expression
+}
+
+func (rs *ReturnStatement) statementNode()       {}
+func (rs *ReturnStatement) TokenLiteral() string { return rs.Token.Literal }
