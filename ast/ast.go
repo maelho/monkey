@@ -3,6 +3,7 @@ package ast
 
 import (
 	"bytes"
+	"strings"
 
 	"maelho.github.io/monkey/token"
 )
@@ -204,8 +205,61 @@ func (ie *IfExpression) String() string {
 	return out.String()
 }
 
+// fn <parameters> <block statement>
+
+type FunctionLiteral struct {
+	Token      token.Token // 'fn' token
+	Parameters []*Identifier
+	Body       *BlockStatament
+}
+
+func (fl *FunctionLiteral) expressionNode()      {}
+func (fl *FunctionLiteral) TokenLiteral() string { return fl.Token.Literal }
+func (fl *FunctionLiteral) String() string {
+	var out bytes.Buffer
+
+	params := []string{}
+	for _, p := range fl.Parameters {
+		params = append(params, p.String())
+	}
+
+	out.WriteString(fl.TokenLiteral())
+	out.WriteString("(")
+	out.WriteString(strings.Join(params, ", "))
+	out.WriteString("(")
+	out.WriteString(fl.Body.String())
+
+	return out.String()
+}
+
+// <expression>(<comma separated expressions>)
+
+type CallExpression struct {
+	Token     token.Token // ( token
+	Function  Expression  // identifer od FunctionalLiteral
+	Arguments []Expression
+}
+
+func (ce *CallExpression) expressionNode()      {}
+func (ce *CallExpression) TokenLiteral() string { return ce.Token.Literal }
+func (ce *CallExpression) String() string {
+	var out bytes.Buffer
+
+	args := []string{}
+	for _, p := range ce.Arguments {
+		args = append(args, p.String())
+	}
+
+	out.WriteString(ce.Function.String())
+	out.WriteString("(")
+	out.WriteString(strings.Join(args, ", "))
+	out.WriteString("(")
+
+	return out.String()
+}
+
 type BlockStatament struct {
-	Token      token.Token // { toke
+	Token      token.Token // { token
 	Statements []Statement
 }
 
