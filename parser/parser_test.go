@@ -249,61 +249,75 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 		expected string
 	}{
 		{
-			input:    "-a * b",
-			expected: "((-a) * b)",
+			"-a * b",
+			"((-a) * b)",
 		},
 		{
-			input:    "!-a",
-			expected: "(!(-a))",
+			"!-a",
+			"(!(-a))",
 		},
 		{
-			input:    "a + b + c",
-			expected: "((a + b) + c)",
+			"a + b + c",
+			"((a + b) + c)",
 		},
 		{
-			input:    "a + b - c",
-			expected: "((a + b) - c)",
+			"a + b - c",
+			"((a + b) - c)",
 		},
 		{
-			input:    "a * b * c",
-			expected: "((a * b) * c)",
+			"a * b * c",
+			"((a * b) * c)",
 		},
 		{
-			input:    "a * b / c",
-			expected: "((a * b) / c)",
+			"a * b / c",
+			"((a * b) / c)",
 		},
 		{
-			input:    "a + b / c",
-			expected: "(a + (b / c))",
+			"a + b / c",
+			"(a + (b / c))",
 		},
 		{
-			input:    "a + b * c + d / e - f",
-			expected: "(((a + (b * c)) + (d / e)) - f)",
+			"a + b * c + d / e - f",
+			"(((a + (b * c)) + (d / e)) - f)",
 		},
 		{
-			input:    "3 + 4; -5 * 5",
-			expected: "(3 + 4)((-5) * 5)",
+			"3 + 4; -5 * 5",
+			"(3 + 4)((-5) * 5)",
 		},
 		{
-			input:    "5 > 4 == 3 < 4",
-			expected: "((5 > 4) == (3 < 4))",
+			"5 > 4 == 3 < 4",
+			"((5 > 4) == (3 < 4))",
 		},
 		{
-			input:    "5 < 4 != 3 > 4",
-			expected: "((5 < 4) != (3 > 4))",
+			"5 < 4 != 3 > 4",
+			"((5 < 4) != (3 > 4))",
 		},
 		{
-			input:    "3 + 4 * 5 == 3 * 1 + 4 * 5",
-			expected: "((3 + (4 * 5)) == ((3 * 1) + (4 * 5)))",
+			"3 + 4 * 5 == 3 * 1 + 4 * 5",
+			"((3 + (4 * 5)) == ((3 * 1) + (4 * 5)))",
+		},
+		{
+			"true",
+			"true",
+		},
+		{
+			"false",
+			"false",
+		},
+		{
+			"3 > 5 == false",
+			"((3 > 5) == false)",
+		},
+		{
+			"3 < 5 == true",
+			"((3 < 5) == true)",
 		},
 	}
 
 	for _, tt := range tests {
 		l := lexer.New(tt.input)
 		p := New(l)
-
 		program := p.ParseProgram()
-
 		checkParserErrors(t, p)
 
 		actual := program.String()
