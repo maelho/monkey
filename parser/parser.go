@@ -318,8 +318,8 @@ func (p *Parser) parseCallArguments() []ast.Expression {
 	return args
 }
 
-func (p *Parser) parseBlockStatement() *ast.BlockStatament {
-	block := &ast.BlockStatament{Token: p.curToken}
+func (p *Parser) parseBlockStatement() *ast.BlockStatement {
+	block := &ast.BlockStatement{Token: p.curToken}
 	block.Statements = []ast.Statement{}
 
 	p.nextToken()
