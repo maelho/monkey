@@ -9,12 +9,12 @@ import (
 )
 
 func main() {
-	user, err := user.Current()
+	_, err := user.Current()
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Printf("Hello %s! This is the Monkey programming language!\n", user)
+	fmt.Println("This is the Monkey programming language!")
 	fmt.Printf("Feel free to type in commands\n")
 	repl.Start(os.Stdin, os.Stdout)
 }
