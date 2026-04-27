@@ -16,6 +16,7 @@ const (
 	STRING_OBJ       = "STRING"
 	INTEGER_OBJ      = "INTEGER"
 	BOOLEAN_OBJ      = "BOOLEAN"
+	ARRAY_OBJ        = "ARRAY"
 	FUNCTION_OBJ     = "FUNCTION"
 	BUILTIN_OBJ      = "BUILTIN"
 	RETURN_VALUE_OBJ = "RETURN_VALUE"
@@ -97,6 +98,26 @@ func (f *Function) Inspect() string {
 	out.WriteString("( {\n")
 	out.WriteString(f.Body.String())
 	out.WriteString("\n}")
+
+	return out.String()
+}
+
+type Array struct {
+	Elements []Object
+}
+
+func (ao *Array) Type() ObjectType { return ARRAY_OBJ }
+func (ao *Array) Inspect() string {
+	var out bytes.Buffer
+
+	elements := []string{}
+	for _, e := range ao.Elements {
+		elements = append(elements, e.Inspect())
+	}
+
+	out.WriteString("[")
+	out.WriteString(strings.Join(elements, ", "))
+	out.WriteString("]")
 
 	return out.String()
 }
