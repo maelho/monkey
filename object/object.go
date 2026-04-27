@@ -23,6 +23,8 @@ const (
 	RETURN_VALUE_OBJ = "RETURN_VALUE"
 	HASH_OBJ         = "HASH"
 
+	QOUTE_OBJ = "QOUTE"
+
 	NULL_OBJ  = "NULL"
 	ERROR_OBJ = "ERROR"
 )
