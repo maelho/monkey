@@ -1,6 +1,10 @@
 package evaluator
 
-import "maelho.github.io/monkey/object"
+import (
+	"fmt"
+
+	"maelho.github.io/monkey/object"
+)
 
 var builtins = map[string]*object.Builtin{
 	"len": {Fn: func(args ...object.Object) object.Object {
@@ -96,6 +100,15 @@ var builtins = map[string]*object.Builtin{
 			newElements[length] = args[1]
 
 			return &object.Array{Elements: newElements}
+		},
+	},
+	"puts": {
+		Fn: func(args ...object.Object) object.Object {
+			for _, arg := range args {
+				fmt.Println(arg.Inspect())
+			}
+
+			return NULL
 		},
 	},
 }
