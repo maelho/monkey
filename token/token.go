@@ -56,6 +56,9 @@ const (
 	IF       = "IF"
 	ELSE     = "ELSE"
 	RETURN   = "RETURN"
+
+	// Date types & functions
+	STRING = "STRING"
 )
 
 var keyword = map[string]TokenType{
