@@ -177,3 +177,12 @@ func (h *Hash) Inspect() string {
 
 	return out.String()
 }
+
+type Quote struct {
+	Node ast.Node
+}
+
+func (q *Quote) Type() ObjectType { return QOUTE_OBJ }
+func (q *Quote) Inspect() string {
+	return "QOUTE(" + q.Node.String() + ")"
+}
