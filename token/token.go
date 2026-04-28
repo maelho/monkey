@@ -22,8 +22,9 @@ const (
 	EOF    = "EOF"
 
 	// Identifiers + Literals
-	IDENT = "IDENT"
-	INT   = "INT"
+	IDENT  = "IDENT"
+	INT    = "INT"
+	STRING = "STRING"
 
 	// Operators
 	ASSIGN   = "="
@@ -59,9 +60,7 @@ const (
 	IF       = "IF"
 	ELSE     = "ELSE"
 	RETURN   = "RETURN"
-
-	// Date types & functions
-	STRING = "STRING"
+	MACRO    = "MACRO"
 )
 
 var keyword = map[string]TokenType{
@@ -72,4 +71,5 @@ var keyword = map[string]TokenType{
 	"if":     IF,
 	"else":   ELSE,
 	"return": RETURN,
+	"maro":   MACRO,
 }
