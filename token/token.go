@@ -8,23 +8,14 @@ type Token struct {
 	Literal string
 }
 
-// LookupIdent checks the keywords table to see
-// whether the given identifier is in fact a keyword.
-func LookupIdent(ident string) TokenType {
-	if tok, ok := keyword[ident]; ok {
-		return tok
-	}
-	return IDENT
-}
-
 const (
-	ILEGAL = "ILLEGAL"
-	EOF    = "EOF"
+	ILLEGAL = "ILLEGAL"
+	EOF     = "EOF"
 
-	// Identifiers + Literals
-	IDENT  = "IDENT"
-	INT    = "INT"
-	STRING = "STRING"
+	// Identifiers + literals
+	IDENT  = "IDENT"  // add, foobar, x, y, ...
+	INT    = "INT"    // 1343456
+	STRING = "STRING" // "foobar"
 
 	// Operators
 	ASSIGN   = "="
@@ -63,7 +54,7 @@ const (
 	MACRO    = "MACRO"
 )
 
-var keyword = map[string]TokenType{
+var keywords = map[string]TokenType{
 	"fn":     FUNCTION,
 	"let":    LET,
 	"true":   TRUE,
@@ -71,5 +62,12 @@ var keyword = map[string]TokenType{
 	"if":     IF,
 	"else":   ELSE,
 	"return": RETURN,
-	"maro":   MACRO,
+	"macro":  MACRO,
+}
+
+func LookupIdent(ident string) TokenType {
+	if tok, ok := keywords[ident]; ok {
+		return tok
+	}
+	return IDENT
 }

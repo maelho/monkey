@@ -48,8 +48,10 @@ func (p *Program) String() string {
 
 // let <identifier> = <expression>;
 
+// Statements
+
 type LetStatement struct {
-	Token token.Token // token.LET
+	Token token.Token // the token.LET token
 	Name  *Identifier
 	Value Expression
 }
@@ -84,7 +86,7 @@ func (i *Identifier) String() string       { return i.Value }
 // return <expression>:
 
 type ReturnStatement struct {
-	Token       token.Token // token.RETURN
+	Token       token.Token // the 'return' token
 	ReturnValue Expression
 }
 
@@ -158,7 +160,7 @@ func (pe *PrefixExpression) String() string {
 }
 
 type InfixExpression struct {
-	Token    token.Token // prefix token, e.g. +
+	Token    token.Token // The operator token, e.g. +
 	Left     Expression
 	Operator string
 	Right    Expression
@@ -190,7 +192,7 @@ func (b *Boolean) String() string       { return b.Token.Literal }
 // if (<condition>) <consequence> else <alternative>
 
 type IfExpression struct {
-	Token       token.Token // 'if' token
+	Token       token.Token // The 'if' token
 	Condition   Expression
 	Consequence *BlockStatement
 	Alternative *BlockStatement
